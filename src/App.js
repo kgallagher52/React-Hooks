@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
 //Components
 import Notes from './components/Notes';
@@ -9,6 +9,11 @@ import './App.css';
 const App = (props) => {
   const [count, setCount] = useState(props.count)
   const [text, setText] = useState('count')
+
+  useEffect(() => {
+    document.title = count
+  }, [count])
+
   return(
     <div>
       <Notes/>
