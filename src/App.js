@@ -9,7 +9,6 @@ import './App.css';
 const App = (props) => {
   const [count, setCount] = useState(props.count)
   const [text, setText] = useState('count')
-
   return(
     <div>
       <Notes/>

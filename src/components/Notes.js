@@ -1,9 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 const Notes = () => {
-    const [notes, setNotes] = useState([])
+    const notesData = JSON.parse(localStorage.getItem('notes'))
+    const [notes, setNotes] = useState(notesData || [])
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
+    
+    useEffect(() => {
+        localStorage.setItem('notes', JSON.stringify(notes))         
+    })
 
 
     const addNote = (e) => {
