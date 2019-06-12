@@ -36,7 +36,7 @@ const Notes = () => {
             <p>Add Note!!!</p>
             <form onSubmit={addNote}>
                 <input placeholder="TITLE" value={title} onChange={(e) => setTitle(e.target.value)}/>
-                <input placeholder="BODY" value={body} onChange={(e) => setBody(e.target.value)}/>
+                <textarea placeholder="BODY" value={body} onChange={(e) => setBody(e.target.value)}/>
                 <button>Add Note</button>
             </form>
         </div>
