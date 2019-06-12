@@ -1,20 +1,23 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useReducer } from 'react'
 
 //components
 import Note from './Note'
+import notesReducer from './notesReducer'
 
 const Notes = () => {
-    const [notes, setNotes] = useState([])
+    const [notes, dispatch] = useReducer(notesReducer, [])
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
 
     useEffect(() => {
-        const notesData = JSON.parse(localStorage.getItem('notes'))
-        if(notesData) {
-            setNotes(notesData)       
-
+        const notes = JSON.parse(localStorage.getItem('notes'))
+        if(notes) {
+            dispatch({
+                type:'POPULATE_NOTES',
+                notes
+            })
         } 
-    },[]) // Setting data only once when componet is mounted. to keep presisted data when [] dependencies runs everytime
+    },[])
     
     useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes))         
@@ -23,19 +26,21 @@ const Notes = () => {
 
     const addNote = (e) => {
         e.preventDefault()
-        setNotes([
-            ...notes,
-            { title,body },
-        ])
+        dispatch({
+            type:'ADD_NOTE',
+            data: {title,body}
+        })
+
         setTitle('')
         setBody('')
 
     }
 
     const removeNote = (title) => {
-        setNotes(notes.filter(n => (
-            n.title !== title
-        )))
+        dispatch({
+            type:'REMOVE_NOTE',
+            data: notes.filter(n => (n.title !== title))
+        })
     }
 
     return (
