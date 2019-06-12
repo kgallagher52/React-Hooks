@@ -1,14 +1,21 @@
 import React, { useState, useEffect } from 'react'
 
 const Notes = () => {
-    const notesData = JSON.parse(localStorage.getItem('notes'))
-    const [notes, setNotes] = useState(notesData || [])
+    const [notes, setNotes] = useState([])
     const [title, setTitle] = useState('')
     const [body, setBody] = useState('')
+
+    useEffect(() => {
+        const notesData = JSON.parse(localStorage.getItem('notes'))
+        if(notesData) {
+            setNotes(notesData)       
+
+        } 
+    },[]) // Setting data only once to keep presisted data when [] dependencies runs everytime
     
     useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes))         
-    })
+    },[notes])
 
 
     const addNote = (e) => {

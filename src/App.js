@@ -9,14 +9,11 @@ import './App.css';
 const App = (props) => {
   const [count, setCount] = useState(props.count)
   const [text, setText] = useState('count')
-<<<<<<< HEAD
 
   useEffect(() => {
     document.title = count
   }, [count])
 
-=======
->>>>>>> 2bf5bb0edb499175bdd1532ee3b31035376593ae
   return(
     <div>
       <Notes/>
