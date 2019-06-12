@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
+//components
+import Note from './Note'
+
 const Notes = () => {
     const [notes, setNotes] = useState([])
     const [title, setTitle] = useState('')
@@ -11,7 +14,7 @@ const Notes = () => {
             setNotes(notesData)       
 
         } 
-    },[]) // Setting data only once to keep presisted data when [] dependencies runs everytime
+    },[]) // Setting data only once when componet is mounted. to keep presisted data when [] dependencies runs everytime
     
     useEffect(() => {
         localStorage.setItem('notes', JSON.stringify(notes))         
@@ -38,13 +41,7 @@ const Notes = () => {
     return (
         <div>
             <h1>Notes Component</h1>
-            {notes.map(n => (
-                    <div key={n.title}>
-                        <h3>{n.title}</h3>
-                        <p>{n.body}</p>
-                        <button onClick={() => removeNote(n.title)}>Remove {n.title}</button>
-                    </div>
-            ))}
+            <Note notes={notes} removeNote={removeNote}/>
             <p>Add Note!!!</p>
             <form onSubmit={addNote}>
                 <input placeholder="TITLE" value={title} onChange={(e) => setTitle(e.target.value)}/>
