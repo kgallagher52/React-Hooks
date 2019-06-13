@@ -4,6 +4,7 @@ import React, { useState, useEffect, useReducer } from 'react'
 import Note from './Note'
 import notesReducer from './notesReducer'
 import Form from './Form'
+import NotesContext from './context/NotesContext'
 
 const Notes = () => {
     const [notes, dispatch] = useReducer(notesReducer, [])
@@ -45,12 +46,11 @@ const Notes = () => {
     }
 
     return (
-        <div>
+        <NotesContext.Provider value={{notes,dispatch,removeNote,body,title,setTitle,setBody,addNote }}>
             <h1>Notes Component</h1>
-            <Note notes={notes} removeNote={removeNote}/>
-            <p>Add Note!!!</p>
-            <Form title={title} body={body} setTitle={setTitle} setBody={setBody} addNote={addNote}/>
-        </div>
+            <Note/>
+            <Form/>
+        </NotesContext.Provider>
     )
 }
 

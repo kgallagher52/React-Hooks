@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import NotesContext from './context/NotesContext'
 
-const Form = ({ title, body, setBody, setTitle, addNote }) => {
+const Form = () => {
+    const { title, body, setBody, setTitle, addNote } = useContext(NotesContext)
+
     return (
         <span>
             <p>Add Note!!!</p>

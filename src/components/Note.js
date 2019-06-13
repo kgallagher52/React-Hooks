@@ -1,6 +1,9 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useContext } from 'react'
+import NotesContext from './context/NotesContext'
 
-const Note = ({ removeNote, notes}) => {
+const Note = () => {
+    const { notes, removeNote } = useContext(NotesContext)
+
     useEffect(() => {
         console.log("Setting up effect");
         return () => {
