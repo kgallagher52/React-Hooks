@@ -1,18 +1,22 @@
-import React, { useState, useEffect, useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 
 //components
 import Note from './Note'
 import notesReducer from './notesReducer'
-import Form from './Form'
+import AddNote from './AddNote'
 import useMousePosition from './useMousePosition'
 import NotesContext from './context/NotesContext'
 
+
+//Styling
+const notesContainer = {
+    display:'inline-block',
+  
+} 
+
 const Notes = () => {
     const [notes, dispatch] = useReducer(notesReducer, [])
-    const [title, setTitle] = useState('')
-    const [body, setBody] = useState('')
-
-    const position = useMousePosition()
+    const position = useMousePosition() //Custom hook
 
     useEffect(() => {
         const notes = JSON.parse(localStorage.getItem('notes'))
@@ -25,35 +29,21 @@ const Notes = () => {
     },[])
     
     useEffect(() => {
-        localStorage.setItem('notes', JSON.stringify(notes))         
+       const storeNote =  () => {
+           localStorage.setItem('notes', JSON.stringify(notes)) 
+       } 
+
+       return (() => {
+            storeNote()
+       })       
     },[notes])
 
 
-    const addNote = (e) => {
-        e.preventDefault()
-        dispatch({
-            type:'ADD_NOTE',
-            data: {title,body}
-        })
-
-        setTitle('')
-        setBody('')
-
-    }
-
-    const removeNote = (title) => {
-        dispatch({
-            type:'REMOVE_NOTE',
-            data: notes.filter(n => (n.title !== title))
-        })
-    }
-
     return (
-        <NotesContext.Provider value={{addNote,notes,removeNote, title, body, setBody, setTitle, addNote}}>
-            <h1>Notes Component</h1>
-            <p>{position.x}|{position.y}</p>
-            <Note/>
-            <Form/>
+        <NotesContext.Provider value={{ notes,dispatch }} style={notesContainer} >
+            <p>Mouse Position:{position.x}|{position.y}</p>
+            <Note />
+            <AddNote/>
         </NotesContext.Provider>
     )
 }

@@ -1,5 +1,5 @@
 // Custom HOOK
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
 // Can call it what you want but use at the beginning is best practice for custom hooks
 const useMousePosition = () => {

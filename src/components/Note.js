@@ -1,26 +1,28 @@
-import React, { useEffect, useContext } from 'react'
+import React, { useContext } from 'react'
 import NotesContext from './context/NotesContext'
 
 const Note = () => {
-    const { notes, removeNote } = useContext(NotesContext)
+    const { notes, dispatch } = useContext(NotesContext)
 
-    useEffect(() => {
-        console.log("Setting up effect");
-        return () => {
-            console.log('Cleaning up effect called after component unmounts');
-        }
-    }, [])
+    const removeNote = (title) => {
+        dispatch({
+            type:'REMOVE_NOTE',
+            data: notes.filter(n => (n.title !== title))
+        })
+    }
 
     return (
-        <div>
+        <>
+            <h1>Note Component</h1>
+
             {notes.map(n => (
-                    <div key={n.title}>
-                        <h3>{n.title}</h3>
-                        <p>{n.body}</p>
-                        <button onClick={() => removeNote(n.title)}>Remove {n.title}</button>
-                    </div>
+                <div key={n.title}>
+                    <h3>{n.title}</h3>
+                    <p>{n.body}</p>
+                    <button onClick={() => removeNote(n.title)}>Remove {n.title}</button>
+                </div>
             ))}
-        </div>
+        </>
     )
 }
 

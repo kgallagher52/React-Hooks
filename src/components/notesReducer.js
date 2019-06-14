@@ -1,5 +1,3 @@
-import React from 'react'
-
 const notesReducer = (state, action) => {
    switch(action.type) {
        case 'POPULATE_NOTES':
