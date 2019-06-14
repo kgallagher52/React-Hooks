@@ -1,5 +1,5 @@
-import React from 'react'
+import React, { createContext } from 'react'
 
-const NotesContext = React.createContext() // creating context
+const NotesContext = createContext() // creating context
 
 export default NotesContext

@@ -46,7 +46,7 @@ const Notes = () => {
     }
 
     return (
-        <NotesContext.Provider value={{notes,dispatch,removeNote,body,title,setTitle,setBody,addNote }}>
+        <NotesContext.Provider value={{addNote,notes,removeNote, title, body, setBody, setTitle, addNote}}>
             <h1>Notes Component</h1>
             <Note/>
             <Form/>
